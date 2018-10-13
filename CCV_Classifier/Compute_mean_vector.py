@@ -22,14 +22,14 @@ PoseDatapath = basepath + 'pose_feature_CCV'
 
 catagories_group_save = [['GRADUATION', 'BIRTHDAY', 'WEDDINGCEREMONY', 'WEDDINGDANCE', 'NONMUSICPERFORMANCE', 'PARADE'],
 					['BASKETBALL', 'BASEBALL', 'SOCCER', 'BIKING', 'PLAYGROUND'],
-					['ICESKATING', 'SKIING', 'SWIMMING', 'BEACH']]
+					['ICESKATING', 'SKIING', 'SWIMMING', 'BEACH']] ##特征类存储
 catagories_group = [['BIKING', 'PLAYGROUND', 'PARADE'],
 					['BASKETBALL', 'BASEBALL', 'SOCCER', 'NONMUSICPERFORMANCE'],
 					['ICESKATING', 'SKIING','SWIMMING', 'BEACH'],
-					['GRADUATION', 'BIRTHDAY', 'WEDDINGCEREMONY', 'WEDDINGDANCE']]
+					['GRADUATION', 'BIRTHDAY', 'WEDDINGCEREMONY', 'WEDDINGDANCE']] ##特征类
 
 
-def get_feature(featurepath, filename):
+def get_feature(featurepath, filename):      
 	if os.path.isfile(os.path.join(featurepath, 'train', filename)):
 		with open(os.path.join(featurepath, 'train', filename), 'rb') as f:
 			ret = np.array(pickle.load(f,encoding='latin1'), dtype=np.float)
@@ -41,22 +41,22 @@ def get_feature(featurepath, filename):
 			ret = np.array(pickle.load(f,encoding='latin1'), dtype=np.float)
 	return ret
 
-NUM_SUBGROUP = catagories_group.__len__()
+NUM_SUBGROUP = catagories_group.__len__()  ## 特征类的大小
 test_data = None
 test_label = np.array([])
 picklelist = os.listdir(os.path.join(ObjDatapath, 'train'))[::1]
-picklelist.sort()
+picklelist.sort()                                                                   ## 目录列表
 data = {}
 data_label = {}
 for pickle_filename in picklelist:
 	RGBData = get_feature(RGBDatapath, pickle_filename.split('_')[1]+'_'+pickle_filename.split('_')[2])
 	RGB_LEN = RGBData.shape[0]
-	for i in range(RGB_LEN,6,1):
+	for i in range(RGB_LEN,6,1):                      ## 至少六行，否则补足
 		RGBData = np.append(RGBData,[RGBData[RGB_LEN-1]],0)
 	FlowData = get_feature(FlowDatapath, pickle_filename)
 	# VGG verison BGData & ObjData
 	# RGBData = np.array([RGBData[i * 16:i * 16 + 16].mean(0) for i in range(6)])
-	FlowData = np.array([FlowData[i * 16:i * 16 + 16].mean(0) for i in range(6)])
+	FlowData = np.array([FlowData[i * 16:i * 16 + 16].mean(0) for i in range(6)]) ##特征压缩为6列
 	## load pose feature
 	PoseData = None
 	PoseData_TMP = get_feature(PoseDatapath, pickle_filename)
@@ -68,7 +68,7 @@ for pickle_filename in picklelist:
 				PoseData = PoseData_TMP[i][j]
 			else:
 				PoseData = np.append(PoseData, PoseData_TMP[i][j])
-	ObjData = get_feature(ObjDatapath, pickle_filename).mean(0)/2
+	ObjData = get_feature(ObjDatapath, pickle_filename).mean(0)/2  ##obj均值
 	BGData = get_feature(BGDatapath, pickle_filename)
 	MRData = np.append(RGBData, FlowData, 1)
 	ObjData = [ObjData] * 6
