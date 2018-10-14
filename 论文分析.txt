@@ -1,0 +1,5 @@
+方法特色：融合了语义行为，场景，行为姿势进行行为识别。分别使用ResNet，Faster-RCNN和VGG提取交互行为，场景，肢体姿势和运动。计算各特征的贡献建立一个信息图
+
+RGB_feature,flow_feature:使用 ResNext101训练RGB视频和光流，UCF101中将帧数剪切为64帧，另外两个数据集中帧数剪切为16帧
+object_feature:相比于R-CNN，Faster R-CNN对于速度和精度有更好的平衡
+Scene_feature:使用VGG-16网络题区场景特征
