@@ -6,3 +6,7 @@ cluster_to_divide_group是将特征分类到多个特征集
 compute_mean_vector生成均值向量作为特征
 
 
+
+
+代码改动：
+目录所在位置应该是当前目录，将basepath:../改为./

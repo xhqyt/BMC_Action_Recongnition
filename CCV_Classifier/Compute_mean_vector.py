@@ -12,7 +12,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 ## data dir
-basepath = '../caches/'
+basepath = './caches/'
 BGDatapath = basepath + 'BackgroundData_fc8'
 RGBDatapath = basepath + 'rgb_feature'
 FlowDatapath = basepath + 'FlowData_lstm1'
