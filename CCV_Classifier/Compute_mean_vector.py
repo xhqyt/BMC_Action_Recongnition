@@ -12,7 +12,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 ## data dir
-basepath = './caches/'
+basepath = '../caches/'
 BGDatapath = basepath + 'BackgroundData_fc8'
 RGBDatapath = basepath + 'rgb_feature'
 FlowDatapath = basepath + 'FlowData_lstm1'
@@ -70,7 +70,7 @@ for pickle_filename in picklelist:
 				PoseData = np.append(PoseData, PoseData_TMP[i][j])
 	ObjData = get_feature(ObjDatapath, pickle_filename).mean(0)/2  ##obj均值
 	BGData = get_feature(BGDatapath, pickle_filename)
-	MRData = np.append(RGBData, FlowData, 1)
+	MRData = np.append(RGBData, FlowData, 1) 
 	ObjData = [ObjData] * 6
 	PoseData = [PoseData] * 6
 	# coarse label
@@ -82,11 +82,11 @@ for pickle_filename in picklelist:
 	gt = pickle_filename.split('_')[1]
 	## coarse classify
 	test_label_group_n = 0
-	for group_n in range(NUM_SUBGROUP):
+	for group_n in range(NUM_SUBGROUP):                    ##hash，使用键值保存类在表中的信息即标签位置
 		if gt in catagories_group[group_n]:
 			test_label_group_n = group_n*100 + catagories_group[group_n].index(gt)
-	test_label = test_label_group_n
-	if test_label in data:
+	test_label = test_label_group_n                       
+	if test_label in data:                                
 		data[test_label] = data[test_label] + test_data
 		data_label[test_label] += 1
 	else:

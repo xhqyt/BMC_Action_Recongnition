@@ -148,8 +148,8 @@ if __name__ == '__main__':
 			print('K1: ',k1+1,' K2:',k2+1,'Test accuracy on test data:', (np.array(predict_result) == np.array(groundtruth)).mean())
 
 			for i in range(ground_truth.shape[0]):
-				ground_label = catagories_group[int(ground_truth[i]/100)][ground_truth[i]%100]
-				pred_label = catagories_group[int(predict_result[i]/100)][predict_result[i]%100]
+				ground_label = catagories_group[int(ground_truth[i]/100)][int(ground_truth[i]%100)]
+				pred_label = catagories_group[int(predict_result[i]/100)][int(predict_result[i]%100)]
 				predict_matrix[catagories.index(ground_label)][catagories.index(pred_label)] += 1
 			for i in range(predict_matrix.shape[0]):
 				print(predict_matrix[i][i] / predict_matrix[i].sum())

@@ -6,12 +6,12 @@ from yue.json import parse_json
 from yue.json import read_classes
 from yue.load_data import get_feature
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-Root_Path = '../dataset/'
-Motion_Path = '../CNN_LSTM/video-classification-3d-cnn-pytorch/'
+Root_Path = './dataset/'
+Motion_Path = './CNN_LSTM/video-classification-3d-cnn-pytorch/'
 Obj_Path = Root_Path + 'Obj_feature'
 Pose_Path = Root_Path + 'pose_feature'
 Scene_Path = Root_Path + 'Scene_feature'
-classes_file =  '../dataset/list/class_names.txt'
+classes_file =  './dataset/list/class_names.json'
 RGB_train_json_file = Motion_Path + 'hmdb51_resnext101_64f_train_data.json'
 RGB_test_json_file = Motion_Path + 'hmdb51_resnext101_64f_test_data.json'
 Flow_train_json_file = Motion_Path + 'hmdb51_flow_resnext101_train_data.json'
